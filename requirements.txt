@@ -1,1 +1,6 @@
-# Python dependencies
+fastapi
+uvicorn[standard]
+httpx
+python-dotenv
+pydantic
+google-generativeai
