@@ -1,6 +1,6 @@
 from fastapi import FastAPI, BackgroundTasks, Request, Depends
 from pydantic import BaseModel
-from app.security import verify_github_signature
+from app.security import verify_signature
 from app.github import fetch_pr_diff, post_pr_comment
 from app.gemini import generate_code_review
 

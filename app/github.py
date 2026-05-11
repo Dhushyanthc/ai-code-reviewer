@@ -34,7 +34,7 @@ async def fetch_pr_diff(repo_full_name: str, pr_number: int) -> str:
     return response.text
   
 
-  async def post_pr_comment(repo_full_name: str, pr_number: int, comment: str) -> None:
+async def post_pr_comment(repo_full_name: str, pr_number: int, comment: str) -> None:
     """
     Posts a comment on the pull request.
 
