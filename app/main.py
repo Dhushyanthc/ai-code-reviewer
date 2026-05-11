@@ -40,17 +40,19 @@ async def webhook(payload: WebhookPayload, background_tasks: BackgroundTasks, _:
 async def review_pr(repo_full_name: str, pr_number: int):
     print(f"[review_pr] Starting review for PR #{pr_number} in {repo_full_name}")
 
-    
-    print(f"[review_pr] Fetching diff...")
-    diff = await fetch_pr_diff(repo_full_name, pr_number)
-    print(f"[review_pr] Diff fetched — {len(diff)} characters")
+    try:
+     diff = await fetch_pr_diff(repo_full_name, pr_number)
+    except Exception as e:
+      print(f"[review_pr] FAILED at fetch_pr_diff — PR #{pr_number} — {e}")
+      return 
+    try:
+      review = await generate_code_review(diff)
+    except Exception as e:
+      print(f"[review_pr] FAILED at generate_code_review — PR #{pr_number} — {e}")
+      return
 
-    
-    print(f"[review_pr] Generating review with Gemini...")
-    review = await generate_code_review(diff)
-    print(f"[review_pr] Review generated — {len(review)} characters")
-
-    
-    print(f"[review_pr] Posting comment to PR...")
-    await post_pr_comment(repo_full_name, pr_number, review)
-    print(f"[review_pr] Done. Review posted to PR #{pr_number}")
+    try:
+      await post_pr_comment(repo_full_name, pr_number, review)
+    except Exception as e:
+      print(f"[review_pr] FAILED at post_pr_comment — PR #{pr_number} — {e}")
+      return
