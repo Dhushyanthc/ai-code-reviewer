@@ -1,1 +1,1 @@
-# Github rest API's call
+from app.config import GITHUB_PAT

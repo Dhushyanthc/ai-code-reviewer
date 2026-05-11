@@ -1,1 +1,1 @@
-# Gemini API integration
+from app.config import GEMINI_API_KEY
