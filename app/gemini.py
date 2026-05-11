@@ -4,10 +4,10 @@ import google.generativeai as genai
 genai.configure(api_key = GEMINI_API_KEY)
 
 model = genai.GenerativeModel(
-  model_name = "gemini-1.5-flash",
+  model_name = "gemini-3-flash-preview",
   generation_config = genai.GenerationConfig(
     temperature=0.2,
-    max_output_tokens= 1200
+    max_output_tokens= 15000
   )
 )
 

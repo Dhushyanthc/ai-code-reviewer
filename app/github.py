@@ -1,3 +1,5 @@
+from fastapi import Body
+
 from app.config import GITHUB_PAT
 import httpx
 
@@ -49,7 +51,7 @@ async def post_pr_comment(repo_full_name: str, pr_number: int, comment: str) -> 
       response = await client.post(
         url,
         headers = BASE_HEADERS,
-        json = {"body": body}
+        json = {"body": comment}
       )
 
       response.raise_for_status()
